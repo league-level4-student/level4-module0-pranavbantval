@@ -56,9 +56,12 @@ public class GridPanel extends JPanel{
 		//   of the pixel that was clicked. *HINT* Use the pixel's dimensions.
 		for (int i = 0; i < pixels.length; i++) {
 			for (int j = 0; j < pixels.length; j++) {
-				if(pixels[i][j].x<mouseX&&pixels[i][j].x+pixelWidth>mouseX&&
-			       pixels[i][j].y<mouseY&&pixels[i][j].y+pixelHeight>mouseY) {
+				if(pixels[i][j].x*pixelWidth<=mouseX&&(pixels[i][j].x*pixelWidth)+pixelWidth>mouseX&&
+			       pixels[i][j].y*pixelHeight<mouseY&&(pixels[i][j].y*pixelHeight)+pixelHeight>=mouseY) {
 					pixels[i][j].color=color;
+					System.out.println("Pixel Width, Height:"+pixelWidth + "  ,"+pixelHeight);
+					System.out.println("pixel location:" +pixels[i][j].x +",  "+pixels[i][j].y);
+					System.out.println("mouse location: "+mouseX+",  "+mouseY);
 				}
 			}
 		}
