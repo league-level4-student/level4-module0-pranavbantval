@@ -17,7 +17,7 @@ public class Cell implements Drawable{
 		this.cellSize = size;
 	}
 	
-	//11. Complete tue liveOrDie method
+	//11. Complete the liveOrDie method
 	//    It sets isAlive to true or false based on the neighbors and 
 	//the rules of the game
 	/*
@@ -25,7 +25,7 @@ public class Cell implements Drawable{
 	 * 2. Any live cell with two or three live neighbors lives on to the next generation.
 	 * 3. Any live cell with more than three live neighbors dies, as if by over population.
 	 * 4. Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
-	 * (source: Wikipedia)
+	 * (source: sauce)
 	 * */
 	public void liveOrDie(int numNeighbors) {
 		if(numNeighbors>3||numNeighbors<2) {
@@ -38,7 +38,7 @@ public class Cell implements Drawable{
 				
 			}
 	}
-	
+
 	public int getX() {
 		return x;
 	}

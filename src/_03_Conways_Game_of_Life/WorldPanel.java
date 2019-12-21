@@ -72,7 +72,7 @@ Cell[][] cells;
 		this.cellsPerRow = cpr;
 	
 		//2. Calculate the cell size.
-		int cellSize = w/cellsPerRow;
+		int cellSize = 10;
 		//3. Initialize the cell array to the appropriate size.
 		cells = new Cell[cellSize][cellSize];
 		//3. Iterate through the array and initialize each cell.
@@ -87,7 +87,7 @@ Cell[][] cells;
 	
 	public void randomizeCells() {
 		//4. Iterate through each cell and randomly set each
-		//   cell's isAlive memeber to true of false
+		//   cell's isAlive member to true of false
 		Random r = new Random();
 		for (int i = 0; i < cells.length; i++) {
 			for (int j = 0; j < cells.length; j++) {
@@ -96,7 +96,7 @@ Cell[][] cells;
 		}
 		repaint();
 	}
-	
+
 	public void clearCells() {
 		//5. Iterate through the cells and set them all to dead.
 		for (int i = 0; i < cells.length; i++) {
@@ -215,7 +215,7 @@ Cell[][] cells;
 		//10. Use e.getX() and e.getY() to determine
 		//    which cell is clicked. Then toggle
 		//    the isAlive variable for that cell.
-		if(cells[e.getX()/cellSize][e.getY()/cellSize].isAlive) {
+		if(cells[e.getX()/cellSize][e.getY()/cellSize].isAlive==true) {
 		cells[e.getX()/cellSize][e.getY()/cellSize].isAlive=false;
 		}
 		else {
