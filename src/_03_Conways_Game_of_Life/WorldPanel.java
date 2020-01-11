@@ -124,8 +124,7 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		// 6. Iterate through the cells and draw them all
 		for (int i = 0; i < cells.length; i++) {
 			for (int j = 0; j < cells.length; j++) {
-				g.setColor(Color.WHITE);
-				g.drawRect(i * cellSize, j * cellSize, 10, 10);
+				cells[i][j].draw(g);
 			}
 		}
 		// draws grid
@@ -137,72 +136,85 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 	// advances world one step
 	public void step() {
 		// 7. iterate through cells and fill in the livingNeighbors array
-		// . using the getLivingNeighbors method.
+		// . using the getLivingNeighbors method.// 8. check if each cell should live or die
+				/*
+				 * 1. Any live cell with fewer than two live neighbors dies, as if caused by
+				 * under population. 2. Any live cell with two or three live neighbors lives on
+				 * to the next generation. 3. Any live cell with more than three live neighbors
+				 * dies, as if by over population. 4. Any dead cell with exactly three live
+				 * neighbors becomes a live cell, as if by reproduction. (source: sauce)
+				 * 
+		}
+				 */
 		int[][] livingNeighbors = new int[cellsPerRow][cellsPerRow];
 		for (int i = 0; i < cells.length; i++) {
 			for (int j = 0; j < cells.length; j++) {
-				livingNeighbors[i][j] = getLivingNeighbors(i * cellSize, j * cellSize);
-
-				// 8. check if each cell should live or die
-
-				if (livingNeighbors[i][j] > 3 || livingNeighbors[i][j] < 2) {
-					cells[i][j].isAlive = false;
-				} else if (livingNeighbors[i][j] == 3) {
-					cells[i][j].isAlive = true;
-				} else if (livingNeighbors[i][j] == 2) {
-
-				}
+				livingNeighbors[i][j] = getLivingNeighbors(i,j);
+				
+				
 			}
-		}
-		repaint();
+			}
+				for (int i = 0; i < cells.length; i++) {
+					for (int j = 0; j < cells.length; j++) {
+						
+						cells[i][j].liveOrDie(livingNeighbors[i][j]);		
+		
 	}
-
+				}
+				repaint();
+	}
 	// 9. Complete the method.
 	// It returns an int of 8 or less based on how many
 	// living neighbors there are of the
 	// cell identified by x and y
-	public int getLivingNeighbors(int x, int y){
-		int num=0;
-		if(x>0) {
-		if(cells[(x-1)][(y+0)].isAlive) {
-			num++;
+	public int getLivingNeighbors(int x, int y) {
+		int num = 0;
+		int max = cells.length - 1;
+		
+		if (x > 0) {
+			if (cells[(x - 1)][(y)].isAlive) {
+				num++;
+			}
+			if (y < max) {
+				if (cells[(x - 1)][(y + 1)].isAlive) {
+					num++;
+				}
+			}
+			if (y > 0) {
+				if (cells[(x - 1)][(y - 1)].isAlive) {
+					num++;
+				}
+			}
 		}
-		if(y<48){
-		if(cells[(x-1)][(y+1)].isAlive) {
-			num++;
+		 if (x < max) {
+			if (y > 0) {
+				if (cells[(x + 1)][(y - 1)].isAlive) {
+					num++;
+				}
+			}
+
+			if (y < max) {
+				if (cells[(x + 1)][(y + 1)].isAlive) {
+					num++;
+				}
+
+			}
+			if (cells[(x + 1)][(y + 0)].isAlive) {
+				num++;
+			}
 		}
+		 
+		 if (y > 0) {
+			if (cells[(x + 0)][(y - 1)].isAlive) {
+				num++;
+			}
 		}
-		if(y>0) {
-		if(cells[(x-1)][(y-1)].isAlive) {
-			num++;
+		if (y < max) {
+			if (cells[(x + 0)][(y + 1)].isAlive) {
+				num++;
+			}
 		}
-		}
-		}
-		if(x<48) {
-		if(y<0) {
-		if(cells[(x+1)][(y-1)].isAlive) {
-			num++;
-		}
-		}
-		if(cells[(x+1)][(y+0)].isAlive) {
-			num++;
-		}
-		if(y<48) {
-		if(cells[(x+1)][(y+1)].isAlive) {
-			num++;
-		}
-		}
-		}
-		if(y<0) {
-		if(cells[(x+0)][(y-1)].isAlive) {
-			num++;
-		}
-		}
-		if(y<48) {
-		if(cells[(x+0)][(y+1)].isAlive) {
-			num++;
-		}
-		}
+		
 		return num;
 	}
 
@@ -228,11 +240,9 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		// 10. Use e.getX() and e.getY() to determine
 		// which cell is clicked. Then toggle
 		// the isAlive variable for that cell.
-		if (cells[e.getX() / 10][e.getY() / 10].isAlive == true) {
-			cells[e.getX() / 10][e.getY() / 10].isAlive = false;
-		} else {
-			cells[e.getX() / 10][e.getY() / 10].isAlive = true;
-		}
+		int x = e.getX() / 10;
+		int y = e.getY() / 10;
+		cells[x][y].isAlive = !cells[x][y].isAlive;
 
 		repaint();
 	}
