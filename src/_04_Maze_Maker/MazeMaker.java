@@ -101,16 +101,7 @@ public class MazeMaker {
 		int Hmax = height - 1;
 		int Wmax = width - 1;
 		if (c.getX() < Wmax) {
-			if (c.getY() > 0) {
-				if (maze.cells[c.getX() + 1][c.getY() - 1].hasBeenVisited() == false) {
-					cells.add(maze.cells[c.getX() + 1][c.getY() - 1]);
-				}
-			}
-			if (c.getY() < Hmax) {
-				if (maze.cells[c.getX() + 1][c.getY() + 1].hasBeenVisited() == false) {
-					cells.add(maze.cells[c.getX() + 1][c.getY() + 1]);
-				}
-			}
+			
 			if (maze.cells[c.getX() + 1][c.getY()].hasBeenVisited() == false) {
 				cells.add(maze.cells[c.getX() + 1][c.getY()]);
 			}
@@ -119,16 +110,7 @@ public class MazeMaker {
 			if (maze.cells[c.getX() - 1][c.getY()].hasBeenVisited() == false) {
 				cells.add(maze.cells[c.getX() - 1][c.getY()]);
 			}
-			if (c.getY() < Hmax) {
-				if (maze.cells[c.getX() - 1][c.getY() + 1].hasBeenVisited() == false) {
-					cells.add(maze.cells[c.getX() - 1][c.getY() + 1]);
-				}
-			}
-			if (c.getY() > 0) {
-				if (maze.cells[c.getX() - 1][c.getY() - 1].hasBeenVisited() == false) {
-					cells.add(maze.cells[c.getX() - 1][c.getY() - 1]);
-				}
-			}
+			
 		}
 		if (c.getY() < Hmax) {
 			if (maze.cells[c.getX()][c.getY() + 1].hasBeenVisited() == false) {
